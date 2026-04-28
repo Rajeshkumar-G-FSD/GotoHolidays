@@ -1,5 +1,6 @@
 import { Bell, User, Menu, ChevronRight } from 'lucide-react';
 import { View } from '../types';
+import { IMAGES } from '../constants';
 
 interface HeaderProps {
   currentView: View;
@@ -20,9 +21,9 @@ export default function Header({ currentView, onNavigate }: HeaderProps) {
         <div className="flex items-center gap-8">
           <button 
             onClick={() => onNavigate('home')}
-            className="text-2xl font-extrabold tracking-tight text-primary cursor-pointer"
+            className="cursor-pointer"
           >
-            Goto Holidays
+            <img src={IMAGES.logo} alt="Goto Holidays" className="h-10 object-contain" />
           </button>
           <nav className="hidden md:flex items-center gap-6">
             {navItems.map((item) => (

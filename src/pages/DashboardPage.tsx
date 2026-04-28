@@ -21,9 +21,9 @@ export default function DashboardPage({ onNavigate }: DashboardPageProps) {
         <div className="px-6 mb-10">
           <button 
             onClick={() => onNavigate('home')}
-            className="text-xl font-extrabold tracking-tight text-primary cursor-pointer mb-8 block"
+            className="cursor-pointer mb-8 block"
           >
-            Goto Holidays
+            <img src={IMAGES.logo} alt="Goto Holidays" className="h-8 object-contain" />
           </button>
           
           <div className="flex items-center gap-4 mb-2">
@@ -121,7 +121,7 @@ export default function DashboardPage({ onNavigate }: DashboardPageProps) {
                   </div>
                   <div className="flex items-center gap-2 text-outline font-semibold text-sm mb-6">
                     <Calendar size={16} />
-                    <span>Oct 15 - Oct 22, 2024</span>
+                    <span>Oct 15 - Oct 22, 2026</span>
                   </div>
                 </div>
                 <div className="flex items-center justify-between pt-6 border-t border-outline-variant/20">
@@ -153,7 +153,7 @@ export default function DashboardPage({ onNavigate }: DashboardPageProps) {
                   <h3 className="text-2xl font-bold mb-2">Tokyo Explorer</h3>
                   <div className="flex items-center gap-2 text-outline font-semibold text-sm mb-4">
                     <History size={16} />
-                    <span>Mar 10 - Mar 24, 2024</span>
+                    <span>Mar 10 - Mar 24, 2026</span>
                   </div>
                 </div>
                 <div className="flex items-center justify-between pt-4 border-t border-outline-variant/20">
@@ -185,7 +185,7 @@ export default function DashboardPage({ onNavigate }: DashboardPageProps) {
                     <CheckCircle2 size={16} />
                   </div>
                   <h4 className="text-sm font-bold mb-1">Documents Submitted</h4>
-                  <p className="text-xs text-outline font-medium">Sep 12, 2024</p>
+                  <p className="text-xs text-outline font-medium">Sep 12, 2026</p>
                 </div>
                 <div className="relative">
                   <div className="absolute -left-[35px] top-0 w-8 h-8 rounded-full bg-secondary text-white flex items-center justify-center ring-4 ring-white border-2 border-secondary-container/20">

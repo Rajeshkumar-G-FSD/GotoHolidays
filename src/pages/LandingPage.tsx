@@ -1,4 +1,5 @@
-import { Search, MapPin, Calendar, Plane, Train, Luggage, ArrowRight } from 'lucide-react';
+import { useState } from 'react';
+import { Search, MapPin, Calendar, Plane, Luggage, ArrowRight, Loader2 } from 'lucide-react';
 import { IMAGES } from '../constants';
 import { motion } from 'motion/react';
 import { View } from '../types';
@@ -8,6 +9,12 @@ interface LandingPageProps {
 }
 
 export default function LandingPage({ onNavigate }: LandingPageProps) {
+  const [isSearching, setIsSearching] = useState(false);
+
+  const handleSearch = () => {
+    setIsSearching(true);
+    setTimeout(() => setIsSearching(false), 2000);
+  };
   return (
     <div className="w-full relative">
       {/* Hero Section */}
@@ -53,10 +60,6 @@ export default function LandingPage({ onNavigate }: LandingPageProps) {
                 <Plane size={18} />
                 <span>Flights</span>
               </button>
-              <button className="flex items-center space-x-2 text-outline hover:text-primary transition-colors pb-2 font-semibold text-sm cursor-not-allowed">
-                <Train size={18} />
-                <span>Trains</span>
-              </button>
               <button 
                 onClick={() => onNavigate('packages')}
                 className="flex items-center space-x-2 text-outline hover:text-primary transition-colors pb-2 font-semibold text-sm cursor-pointer"
@@ -67,34 +70,44 @@ export default function LandingPage({ onNavigate }: LandingPageProps) {
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-              <div className="relative col-span-1">
-                <label className="block text-xs font-semibold text-outline mb-1 ml-1 text-left">From</label>
-                <div className="flex items-center border border-outline-variant rounded-lg px-3 py-2.5 bg-surface focus-within:border-primary transition-all">
-                  <MapPin size={18} className="text-outline mr-2" />
+              <div className="relative col-span-1 group">
+                <label className="block text-xs font-semibold text-outline mb-1 ml-1 text-left group-focus-within:text-primary transition-colors">From</label>
+                <div className="flex items-center border border-outline-variant rounded-lg px-3 py-2.5 bg-surface focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20 transition-all cursor-text" onClick={(e) => (e.currentTarget.querySelector('input') as HTMLInputElement).focus()}>
+                  <MapPin size={18} className="text-outline group-focus-within:text-primary transition-colors mr-2" />
                   <input className="w-full bg-transparent border-none p-0 focus:ring-0 text-sm placeholder-outline/60" placeholder="Origin city" />
                 </div>
               </div>
-              <div className="relative col-span-1">
-                <label className="block text-xs font-semibold text-outline mb-1 ml-1 text-left">To</label>
-                <div className="flex items-center border border-outline-variant rounded-lg px-3 py-2.5 bg-surface focus-within:border-primary transition-all">
-                  <MapPin size={18} className="text-outline mr-2" />
+              <div className="relative col-span-1 group">
+                <label className="block text-xs font-semibold text-outline mb-1 ml-1 text-left group-focus-within:text-primary transition-colors">To</label>
+                <div className="flex items-center border border-outline-variant rounded-lg px-3 py-2.5 bg-surface focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20 transition-all cursor-text" onClick={(e) => (e.currentTarget.querySelector('input') as HTMLInputElement).focus()}>
+                  <MapPin size={18} className="text-outline group-focus-within:text-primary transition-colors mr-2" />
                   <input className="w-full bg-transparent border-none p-0 focus:ring-0 text-sm placeholder-outline/60" placeholder="Destination" />
                 </div>
               </div>
-              <div className="relative col-span-1">
-                <label className="block text-xs font-semibold text-outline mb-1 ml-1 text-left">Dates</label>
-                <div className="flex items-center border border-outline-variant rounded-lg px-3 py-2.5 bg-surface focus-within:border-primary transition-all">
-                  <Calendar size={18} className="text-outline mr-2" />
+              <div className="relative col-span-1 group">
+                <label className="block text-xs font-semibold text-outline mb-1 ml-1 text-left group-focus-within:text-primary transition-colors">Dates</label>
+                <div className="flex items-center border border-outline-variant rounded-lg px-3 py-2.5 bg-surface focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20 transition-all cursor-text" onClick={(e) => (e.currentTarget.querySelector('input') as HTMLInputElement).focus()}>
+                  <Calendar size={18} className="text-outline group-focus-within:text-primary transition-colors mr-2" />
                   <input className="w-full bg-transparent border-none p-0 focus:ring-0 text-sm placeholder-outline/60" placeholder="Add dates" />
                 </div>
               </div>
               <div className="flex items-end">
                 <button 
-                  onClick={() => onNavigate('flights')}
-                  className="w-full bg-secondary hover:bg-secondary-dark text-white transition-all py-3 rounded-lg font-bold flex justify-center items-center h-[46px] shadow-sm active:scale-95 cursor-pointer"
+                  onClick={handleSearch}
+                  disabled={isSearching}
+                  className="w-full bg-secondary hover:bg-secondary-dark text-white transition-all py-3 rounded-lg font-bold flex justify-center items-center h-[46px] shadow-sm active:scale-95 cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed"
                 >
-                  <Search size={18} className="mr-2" />
-                  Search
+                  {isSearching ? (
+                    <>
+                      <Loader2 size={18} className="mr-2 animate-spin" />
+                      In progress...
+                    </>
+                  ) : (
+                    <>
+                      <Search size={18} className="mr-2" />
+                      Search
+                    </>
+                  )}
                 </button>
               </div>
             </div>

@@ -195,7 +195,7 @@ export default function PackagesPage({ onNavigate }: PackagesPageProps) {
               <div className="border-2 border-surface-low hover:border-primary/20 transition-all rounded-xl p-4 cursor-pointer bg-surface/50 group">
                 <label className="text-[10px] font-bold text-outline uppercase tracking-widest block mb-1">Select Dates</label>
                 <div className="flex items-center justify-between">
-                  <span className="text-sm font-bold">Sep 15 - Sep 22, 2024</span>
+                  <span className="text-sm font-bold">Sep 15 - Sep 22, 2026</span>
                   <Calendar size={18} className="text-outline group-hover:text-primary transition-colors" />
                 </div>
               </div>
