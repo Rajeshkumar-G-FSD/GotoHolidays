@@ -15,27 +15,26 @@ export default function LandingPage({ onNavigate }: LandingPageProps) {
   useEffect(() => {
     const video = videoRef.current;
     if (video) {
-        // Double-enforce muted for mobile autoplay
         video.muted = true;
-        
-        // Attempt play and handle possible block
-        const playPromise = video.play();
-        if (playPromise !== undefined) {
-            playPromise.catch(error => {
-                console.warn("Autoplay blocked/failed, will rely on user interaction:", error);
-            });
-        }
+        video.oncanplay = () => {
+          video.play().catch(() => {});
+        };
+        // Re-try play if it was already canplay but blocked
+        video.play().catch(() => {});
     }
 
-    // Additional listener for user interaction to trigger play if it was blocked
-    const handleTouch = () => {
+    const handleInteraction = () => {
       if (videoRef.current && videoRef.current.paused) {
         videoRef.current.play().catch(() => {});
       }
     };
     
-    window.addEventListener('touchstart', handleTouch, { once: true });
-    return () => window.removeEventListener('touchstart', handleTouch);
+    window.addEventListener('touchstart', handleInteraction, { once: true });
+    window.addEventListener('click', handleInteraction, { once: true });
+    return () => {
+      window.removeEventListener('touchstart', handleInteraction);
+      window.removeEventListener('click', handleInteraction);
+    };
   }, []);
 
   const handleSearch = () => {
@@ -46,7 +45,7 @@ export default function LandingPage({ onNavigate }: LandingPageProps) {
     <div className="w-full relative">
       {/* Hero Section */}
       <section className="relative min-h-[70vh] md:min-h-[85vh] flex flex-col justify-center px-6">
-        <div className="absolute inset-0 z-0 overflow-hidden">
+        <div className={`absolute inset-0 z-0 overflow-hidden bg-cover bg-center`} style={{ backgroundImage: `url(${IMAGES.tropicalCoast})` }}>
           <video 
             ref={videoRef}
             autoPlay 
@@ -55,16 +54,10 @@ export default function LandingPage({ onNavigate }: LandingPageProps) {
             playsInline
             preload="auto"
             className="w-full h-full object-cover"
-            poster={IMAGES.tropicalCoast}
           >
             <source src="/gotoholidays_tripvideo.mp4" type="video/mp4" />
-            <img 
-              src={IMAGES.tropicalCoast} 
-              alt="Fallback Background" 
-              className="w-full h-full object-cover"
-            />
           </video>
-          <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/30 to-black/80 md:from-black/70 md:via-black/30 md:to-black/60"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/20 to-black/60 md:from-black/70 md:via-black/30 md:to-black/60"></div>
         </div>
         
         <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col items-center text-center pb-64 md:pb-40">
