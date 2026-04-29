@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Search, MapPin, Calendar, Plane, Luggage, ArrowRight, Loader2 } from 'lucide-react';
+import { Search, MapPin, Calendar, Plane, Luggage, ArrowRight, Loader2, Phone, Mail, Clock } from 'lucide-react';
 import { IMAGES } from '../constants';
 import { motion } from 'motion/react';
 import { View } from '../types';
@@ -171,6 +171,95 @@ export default function LandingPage({ onNavigate }: LandingPageProps) {
               Start Application <ArrowRight size={18} className="ml-2" />
             </button>
           </div>
+        </div>
+      </section>
+
+      {/* Global Contact & Map Section */}
+      <section className="max-w-7xl mx-auto px-6 mb-24" id="contact-section">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+          {/* Contact Details */}
+          <motion.div 
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="space-y-8"
+          >
+            <div>
+              <h2 className="text-3xl font-black text-on-surface mb-4 tracking-tight">Visit Our Office</h2>
+              <p className="text-outline text-lg max-w-md mb-8">
+                Drop by our Chennai office for a personalized consultation on your next international journey.
+              </p>
+            </div>
+
+            <div className="space-y-6">
+              <div className="flex items-start space-x-4">
+                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
+                  <MapPin size={24} className="text-primary" />
+                </div>
+                <div>
+                  <h4 className="font-bold text-on-surface text-base mb-1">Our Location</h4>
+                  <p className="text-outline text-sm leading-relaxed">
+                    33-13, Brindavan St Ext, Vivekanandapuram,<br />
+                    West Mambalam, Chennai, Tamil Nadu 600033
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start space-x-4">
+                <div className="w-12 h-12 rounded-xl bg-secondary/10 flex items-center justify-center flex-shrink-0">
+                  <Phone size={24} className="text-secondary" />
+                </div>
+                <div>
+                  <h4 className="font-bold text-on-surface text-base mb-1">Call Us</h4>
+                  <p className="text-outline text-sm leading-relaxed">
+                    +91 98404 54601
+                  </p>
+                  <p className="text-xs text-outline/60 mt-1 italic font-medium">Available Mon-Sat: 10:00 AM - 7:00 PM</p>
+                </div>
+              </div>
+
+              <div className="flex items-start space-x-4">
+                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
+                  <Mail size={24} className="text-primary" />
+                </div>
+                <div>
+                  <h4 className="font-bold text-on-surface text-base mb-1">Email Us</h4>
+                  <p className="text-outline text-sm leading-relaxed">
+                    info@gotoholidays.com
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="pt-4">
+              <button 
+                onClick={() => window.open('https://maps.app.goo.gl/9S8S8v8888888888', '_blank')}
+                className="inline-flex items-center space-x-3 text-secondary font-bold text-sm group"
+              >
+                <span>Get Directions on Google Maps</span>
+                <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+              </button>
+            </div>
+          </motion.div>
+
+          {/* Map Preview */}
+          <motion.div 
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="rounded-3xl overflow-hidden shadow-2xl border-4 border-white h-[450px] relative z-10"
+          >
+            <iframe 
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m12!1d3886.918!2d80.222!3d13.040!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a52670000000001%3A0x0!2zMzMtMTMsIEJyaW5kYXZhbiBTdCBFeHQsIFZpdmVrYW5hbmRhcHVyYW0sIFdlc3QgTWFtYmFsYW0sIENoZW5uYWksIFRhbWlsIE5hZHUgNjAwMDMz!5e0!3m2!1sen!2sin!4v1714371451000!5m2!1sen!2sin" 
+              width="100%" 
+              height="100%" 
+              style={{ border: 0 }} 
+              allowFullScreen={true} 
+              loading="lazy" 
+              referrerPolicy="no-referrer-when-downgrade"
+              title="Office Location Map"
+            ></iframe>
+          </motion.div>
         </div>
       </section>
     </div>

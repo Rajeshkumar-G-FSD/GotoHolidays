@@ -15,6 +15,17 @@ export default function Header({ currentView, onNavigate }: HeaderProps) {
     { label: 'Packages', view: 'packages' },
   ];
 
+  const handleContactClick = () => {
+    if (currentView !== 'home') {
+      onNavigate('home');
+      setTimeout(() => {
+        document.getElementById('contact-section')?.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    } else {
+      document.getElementById('contact-section')?.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <header className="bg-white/95 backdrop-blur-md sticky top-0 z-50 border-b border-outline-variant/30 shadow-ambient font-display antialiased">
       <div className="flex justify-between items-center w-full px-6 py-4 max-w-7xl mx-auto">
@@ -45,7 +56,10 @@ export default function Header({ currentView, onNavigate }: HeaderProps) {
           <button className="md:hidden text-outline hover:text-primary p-2 rounded-full hover:bg-surface-low transition-all duration-200 active:scale-95">
             <Menu size={24} />
           </button>
-          <button className="hidden md:block bg-primary hover:bg-primary-light text-white font-bold px-6 py-2.5 rounded-full transition-all duration-200 active:scale-95 shadow-sm text-sm">
+          <button 
+            onClick={handleContactClick}
+            className="hidden md:block bg-primary hover:bg-primary-light text-white font-bold px-6 py-2.5 rounded-full transition-all duration-200 active:scale-95 shadow-sm text-sm cursor-pointer"
+          >
             Contact Us
           </button>
         </div>

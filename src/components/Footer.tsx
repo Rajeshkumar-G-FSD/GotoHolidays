@@ -27,9 +27,15 @@ export default function Footer() {
             <a href="#" className="text-outline text-sm hover:text-secondary underline underline-offset-4 transition-colors">Terms of Service</a>
           </div>
           <div className="flex flex-col gap-3">
-            <h4 className="font-bold text-on-primary-container mb-1">Support</h4>
-            <a href="#" className="text-outline text-sm hover:text-secondary underline underline-offset-4 transition-colors">Help Center</a>
-            <a href="#" className="text-outline text-sm hover:text-secondary underline underline-offset-4 transition-colors">Contact Us</a>
+            <h4 className="font-bold text-on-primary-container mb-1">Contact</h4>
+            <p className="text-outline text-sm leading-relaxed">
+              33-13, Brindavan St Ext,<br />
+              Vivekanandapuram, West Mambalam,<br />
+              Chennai, Tamil Nadu 600033
+            </p>
+            <p className="text-outline text-sm font-bold mt-1">
+              Call: +91 98404 54601
+            </p>
           </div>
         </div>
       </div>
