@@ -18,13 +18,14 @@ export default function LandingPage({ onNavigate }: LandingPageProps) {
   return (
     <div className="w-full relative">
       {/* Hero Section */}
-      <section className="relative min-h-[85vh] flex flex-col justify-center px-6">
+      <section className="relative min-h-[75vh] md:min-h-[85vh] flex flex-col justify-center px-6">
         <div className="absolute inset-0 z-0 overflow-hidden">
           <video 
-            autoPlay 
-            muted 
-            loop 
-            playsInline
+            autoPlay={true}
+            muted={true}
+            loop={true}
+            playsInline={true}
+            preload="auto"
             className="w-full h-full object-cover"
           >
             <source src="/gotoholidays_tripvideo.mp4" type="video/mp4" />
@@ -34,17 +35,17 @@ export default function LandingPage({ onNavigate }: LandingPageProps) {
               className="w-full h-full object-cover"
             />
           </video>
-          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/20 to-black/60"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/30 to-black/60"></div>
         </div>
         
-        <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col items-center text-center pb-40">
+        <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col items-center text-center pb-32 md:pb-40">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8 }}
-            className="mb-8"
+            className="mb-6 md:mb-8"
           >
-            <span className="inline-block px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md text-white text-xs font-bold uppercase tracking-widest border border-white/20">
+            <span className="inline-block px-4 py-1 rounded-full bg-white/10 backdrop-blur-md text-white text-[10px] md:text-xs font-bold uppercase tracking-widest border border-white/20">
               Premium Travel Experiences
             </span>
           </motion.div>
@@ -52,82 +53,82 @@ export default function LandingPage({ onNavigate }: LandingPageProps) {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="font-display text-5xl md:text-7xl lg:text-8xl text-white mb-6 drop-shadow-lg font-black leading-[1.1] tracking-tight"
+            className="font-display text-4xl md:text-7xl lg:text-8xl text-white mb-4 md:mb-6 drop-shadow-lg font-black leading-[1.1] tracking-tight"
           >
-            Discover the World <br /> <span className="text-secondary">With Confidence</span>
+            Discover the World <br className="hidden md:block" /> <span className="text-secondary">With Confidence</span>
           </motion.h1>
           <motion.p 
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1, duration: 0.6 }}
-            className="text-lg md:text-2xl text-white/90 mb-12 max-w-3xl drop-shadow-sm font-medium leading-relaxed"
+            className="text-base md:text-2xl text-white/90 mb-8 md:mb-12 max-w-3xl drop-shadow-sm font-medium leading-relaxed"
           >
             Expert visa processing, curated holiday packages, and seamless flight bookings tailored specifically for your next adventure.
           </motion.p>
         </div>
 
         {/* Overlapping Search Card */}
-        <div className="absolute left-0 right-0 bottom-0 translate-y-1/2 z-30 px-6">
+        <div className="absolute left-0 right-0 bottom-0 translate-y-1/2 z-30 px-4 md:px-6">
           <div className="max-w-6xl mx-auto">
             <motion.div 
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.6 }}
-              className="bg-white rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.15)] p-2 md:p-4 w-full border border-outline-variant/10"
+              className="bg-white rounded-2xl md:rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.15)] p-1 md:p-4 w-full border border-outline-variant/10"
             >
-              <div className="p-4 md:px-8">
-                <div className="flex space-x-8 border-b border-outline-variant/10 mb-6 pb-2">
+              <div className="p-3 md:p-4 md:px-8">
+                <div className="flex space-x-6 md:space-x-8 border-b border-outline-variant/10 mb-4 md:mb-6 pb-2">
                   <button 
                     onClick={() => onNavigate('flights')}
-                    className="flex items-center space-x-2 text-primary border-b-2 border-primary pb-3 -mb-[11px] font-bold text-sm cursor-pointer transition-all"
+                    className="flex items-center space-x-2 text-primary border-b-2 border-primary pb-2 md:pb-3 -mb-[9px] md:-mb-[11px] font-bold text-xs md:text-sm cursor-pointer transition-all"
                   >
-                    <Plane size={20} />
+                    <Plane size={18} className="md:w-5 md:h-5" />
                     <span>Flights</span>
                   </button>
                   <button 
                     onClick={() => onNavigate('packages')}
-                    className="flex items-center space-x-2 text-outline hover:text-primary transition-all pb-3 font-bold text-sm cursor-pointer group"
+                    className="flex items-center space-x-2 text-outline hover:text-primary transition-all pb-2 md:pb-3 font-bold text-xs md:text-sm cursor-pointer group"
                   >
-                    <Luggage size={20} className="group-hover:translate-y-[-2px] transition-transform" />
+                    <Luggage size={18} className="md:w-5 md:h-5 group-hover:translate-y-[-2px] transition-transform" />
                     <span>Packages</span>
                   </button>
                 </div>
                 
-                <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-7 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-7 gap-3 md:gap-4 font-sans">
                   <div className="md:col-span-1 lg:col-span-2 group">
-                    <label className="block text-[10px] font-bold text-outline/70 uppercase tracking-wider mb-2 ml-1 text-left group-focus-within:text-primary transition-colors">From</label>
-                    <div className="flex items-center border border-outline-variant/20 rounded-2xl px-4 py-3 bg-surface-low focus-within:border-primary focus-within:ring-4 focus-within:ring-primary/5 transition-all cursor-text" onClick={(e) => (e.currentTarget.querySelector('input') as HTMLInputElement).focus()}>
-                      <MapPin size={20} className="text-outline group-focus-within:text-primary transition-colors mr-3" />
-                      <input className="w-full bg-transparent border-none p-0 focus:ring-0 text-base font-medium placeholder-outline/40" placeholder="Origin city" />
+                    <label className="block text-[9px] md:text-[10px] font-bold text-outline/70 uppercase tracking-wider mb-1 md:mb-2 ml-1 text-left group-focus-within:text-primary transition-colors">From</label>
+                    <div className="flex items-center border border-outline-variant/20 rounded-xl md:rounded-2xl px-3 md:px-4 py-2 md:py-3 bg-surface-low focus-within:border-primary focus-within:ring-4 focus-within:ring-primary/5 transition-all cursor-text" onClick={(e) => (e.currentTarget.querySelector('input') as HTMLInputElement).focus()}>
+                      <MapPin size={18} className="text-outline group-focus-within:text-primary transition-colors mr-2 md:mr-3" />
+                      <input className="w-full bg-transparent border-none p-0 focus:ring-0 text-sm md:text-base font-medium placeholder-outline/40" placeholder="Origin city" />
                     </div>
                   </div>
                   <div className="md:col-span-1 lg:col-span-2 group">
-                    <label className="block text-[10px] font-bold text-outline/70 uppercase tracking-wider mb-2 ml-1 text-left group-focus-within:text-primary transition-colors">To</label>
-                    <div className="flex items-center border border-outline-variant/20 rounded-2xl px-4 py-3 bg-surface-low focus-within:border-primary focus-within:ring-4 focus-within:ring-primary/5 transition-all cursor-text" onClick={(e) => (e.currentTarget.querySelector('input') as HTMLInputElement).focus()}>
-                      <MapPin size={20} className="text-outline group-focus-within:text-primary transition-colors mr-3" />
-                      <input className="w-full bg-transparent border-none p-0 focus:ring-0 text-base font-medium placeholder-outline/40" placeholder="Destination" />
+                    <label className="block text-[9px] md:text-[10px] font-bold text-outline/70 uppercase tracking-wider mb-1 md:mb-2 ml-1 text-left group-focus-within:text-primary transition-colors">To</label>
+                    <div className="flex items-center border border-outline-variant/20 rounded-xl md:rounded-2xl px-3 md:px-4 py-2 md:py-3 bg-surface-low focus-within:border-primary focus-within:ring-4 focus-within:ring-primary/5 transition-all cursor-text" onClick={(e) => (e.currentTarget.querySelector('input') as HTMLInputElement).focus()}>
+                      <MapPin size={18} className="text-outline group-focus-within:text-primary transition-colors mr-2 md:mr-3" />
+                      <input className="w-full bg-transparent border-none p-0 focus:ring-0 text-sm md:text-base font-medium placeholder-outline/40" placeholder="Destination" />
                     </div>
                   </div>
                   <div className="md:col-span-1 lg:col-span-2 group">
-                    <label className="block text-[10px] font-bold text-outline/70 uppercase tracking-wider mb-2 ml-1 text-left group-focus-within:text-primary transition-colors">Dates</label>
-                    <div className="flex items-center border border-outline-variant/20 rounded-2xl px-4 py-3 bg-surface-low focus-within:border-primary focus-within:ring-4 focus-within:ring-primary/5 transition-all cursor-text" onClick={(e) => (e.currentTarget.querySelector('input') as HTMLInputElement).focus()}>
-                      <Calendar size={20} className="text-outline group-focus-within:text-primary transition-colors mr-3" />
-                      <input className="w-full bg-transparent border-none p-0 focus:ring-0 text-base font-medium placeholder-outline/40" placeholder="Add dates" />
+                    <label className="block text-[9px] md:text-[10px] font-bold text-outline/70 uppercase tracking-wider mb-1 md:mb-2 ml-1 text-left group-focus-within:text-primary transition-colors">Dates</label>
+                    <div className="flex items-center border border-outline-variant/20 rounded-xl md:rounded-2xl px-3 md:px-4 py-2 md:py-3 bg-surface-low focus-within:border-primary focus-within:ring-4 focus-within:ring-primary/5 transition-all cursor-text" onClick={(e) => (e.currentTarget.querySelector('input') as HTMLInputElement).focus()}>
+                      <Calendar size={18} className="text-outline group-focus-within:text-primary transition-colors mr-2 md:mr-3" />
+                      <input className="w-full bg-transparent border-none p-0 focus:ring-0 text-sm md:text-base font-medium placeholder-outline/40" placeholder="Add dates" />
                     </div>
                   </div>
                   <div className="md:col-span-1 lg:col-span-1 flex items-end">
                     <button 
                       onClick={handleSearch}
                       disabled={isSearching}
-                      className="w-full bg-secondary hover:bg-secondary-dark text-white transition-all py-3.5 rounded-2xl font-bold flex justify-center items-center h-[52px] shadow-lg shadow-secondary/20 active:scale-[0.98] cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed text-base"
+                      className="w-full bg-secondary hover:bg-secondary-dark text-white transition-all py-2.5 md:py-3.5 rounded-xl md:rounded-2xl font-bold flex justify-center items-center h-[44px] md:h-[52px] shadow-lg shadow-secondary/20 active:scale-[0.98] cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed text-sm md:text-base mt-2 md:mt-0"
                     >
                       {isSearching ? (
                         <>
-                          <Loader2 size={24} className="mr-2 animate-spin" />
+                          <Loader2 size={20} className="md:w-6 md:h-6 mr-2 animate-spin" />
                         </>
                       ) : (
                         <>
-                          <Search size={24} className="mr-2" />
+                          <Search size={20} className="md:w-6 md:h-6 mr-2" />
                           <span className="hidden lg:inline">Search</span>
                           <span className="lg:hidden">Find</span>
                         </>
