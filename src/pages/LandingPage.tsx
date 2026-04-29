@@ -14,26 +14,51 @@ export default function LandingPage({ onNavigate }: LandingPageProps) {
 
   useEffect(() => {
     const video = videoRef.current;
-    if (video) {
-        video.muted = true;
-        video.oncanplay = () => {
-          video.play().catch(() => {});
-        };
-        // Re-try play if it was already canplay but blocked
-        video.play().catch(() => {});
-    }
+    if (!video) return;
 
-    const handleInteraction = () => {
-      if (videoRef.current && videoRef.current.paused) {
-        videoRef.current.play().catch(() => {});
+    // Standard video settings for autoplay
+    video.muted = true;
+    video.defaultMuted = true;
+    video.playsInline = true;
+
+    const playVideo = () => {
+      const playPromise = video.play();
+      if (playPromise !== undefined) {
+        playPromise.catch((error) => {
+          console.warn("Autoplay was prevented. Waiting for user interaction.", error);
+        });
       }
     };
-    
-    window.addEventListener('touchstart', handleInteraction, { once: true });
-    window.addEventListener('click', handleInteraction, { once: true });
+
+    // Try to play immediately
+    playVideo();
+
+    // Re-try when enough data is loaded
+    const handleCanPlay = () => {
+      playVideo();
+    };
+
+    video.addEventListener('canplay', handleCanPlay);
+
+    // Fallback: play on first user interaction with the page
+    const handleFirstInteraction = () => {
+      if (video.paused) {
+        playVideo();
+      }
+      window.removeEventListener('click', handleFirstInteraction);
+      window.removeEventListener('touchstart', handleFirstInteraction);
+      window.removeEventListener('scroll', handleFirstInteraction);
+    };
+
+    window.addEventListener('click', handleFirstInteraction);
+    window.addEventListener('touchstart', handleFirstInteraction);
+    window.addEventListener('scroll', handleFirstInteraction);
+
     return () => {
-      window.removeEventListener('touchstart', handleInteraction);
-      window.removeEventListener('click', handleInteraction);
+      video.removeEventListener('canplay', handleCanPlay);
+      window.removeEventListener('click', handleFirstInteraction);
+      window.removeEventListener('touchstart', handleFirstInteraction);
+      window.removeEventListener('scroll', handleFirstInteraction);
     };
   }, []);
 
@@ -44,8 +69,8 @@ export default function LandingPage({ onNavigate }: LandingPageProps) {
   return (
     <div className="w-full relative">
       {/* Hero Section */}
-      <section className="relative min-h-[70vh] md:min-h-[85vh] flex flex-col justify-center px-6">
-        <div className={`absolute inset-0 z-0 overflow-hidden bg-cover bg-center`} style={{ backgroundImage: `url(${IMAGES.tropicalCoast})` }}>
+      <section className="relative min-h-[75vh] md:min-h-[85vh] flex flex-col justify-center px-6">
+        <div className="absolute inset-0 z-0 overflow-hidden bg-black">
           <video 
             ref={videoRef}
             autoPlay 
@@ -53,11 +78,11 @@ export default function LandingPage({ onNavigate }: LandingPageProps) {
             loop 
             playsInline
             preload="auto"
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover opacity-80 md:opacity-100"
           >
             <source src="/gotoholidays_tripvideo.mp4" type="video/mp4" />
           </video>
-          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/20 to-black/60 md:from-black/70 md:via-black/30 md:to-black/60"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/20 to-black/70 md:from-black/70 md:via-black/30 md:to-black/60"></div>
         </div>
         
         <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col items-center text-center pb-64 md:pb-40">
