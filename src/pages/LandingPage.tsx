@@ -18,14 +18,13 @@ export default function LandingPage({ onNavigate }: LandingPageProps) {
   return (
     <div className="w-full relative">
       {/* Hero Section */}
-      <section className="relative min-h-[75vh] md:min-h-[85vh] flex flex-col justify-center px-6">
+      <section className="relative min-h-[70vh] md:min-h-[85vh] flex flex-col justify-center px-6">
         <div className="absolute inset-0 z-0 overflow-hidden">
           <video 
-            autoPlay={true}
-            muted={true}
-            loop={true}
-            playsInline={true}
-            preload="auto"
+            autoPlay 
+            muted 
+            loop 
+            playsInline
             className="w-full h-full object-cover"
           >
             <source src="/gotoholidays_tripvideo.mp4" type="video/mp4" />
@@ -35,17 +34,17 @@ export default function LandingPage({ onNavigate }: LandingPageProps) {
               className="w-full h-full object-cover"
             />
           </video>
-          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/30 to-black/60"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/30 to-black/70"></div>
         </div>
         
-        <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col items-center text-center pb-32 md:pb-40">
+        <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col items-center text-center pb-48 md:pb-40">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8 }}
-            className="mb-6 md:mb-8"
+            className="mb-4 md:mb-8"
           >
-            <span className="inline-block px-4 py-1 rounded-full bg-white/10 backdrop-blur-md text-white text-[10px] md:text-xs font-bold uppercase tracking-widest border border-white/20">
+            <span className="inline-block px-3 py-1 rounded-full bg-white/10 backdrop-blur-md text-white text-[9px] md:text-xs font-bold uppercase tracking-widest border border-white/20">
               Premium Travel Experiences
             </span>
           </motion.div>
@@ -53,7 +52,7 @@ export default function LandingPage({ onNavigate }: LandingPageProps) {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="font-display text-4xl md:text-7xl lg:text-8xl text-white mb-4 md:mb-6 drop-shadow-lg font-black leading-[1.1] tracking-tight"
+            className="font-display text-3xl md:text-7xl lg:text-8xl text-white mb-3 md:mb-6 drop-shadow-lg font-black leading-[1.2] md:leading-[1.1] tracking-tight"
           >
             Discover the World <br className="hidden md:block" /> <span className="text-secondary">With Confidence</span>
           </motion.h1>
@@ -61,7 +60,7 @@ export default function LandingPage({ onNavigate }: LandingPageProps) {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1, duration: 0.6 }}
-            className="text-base md:text-2xl text-white/90 mb-8 md:mb-12 max-w-3xl drop-shadow-sm font-medium leading-relaxed"
+            className="text-sm md:text-2xl text-white/90 mb-6 md:mb-12 max-w-3xl drop-shadow-sm font-medium leading-relaxed"
           >
             Expert visa processing, curated holiday packages, and seamless flight bookings tailored specifically for your next adventure.
           </motion.p>
@@ -142,8 +141,8 @@ export default function LandingPage({ onNavigate }: LandingPageProps) {
         </div>
       </section>
 
-      {/* Spacer for overlapping search - Increased to accommodate the card half-overlap */}
-      <div className="h-24 md:h-32 lg:h-36"></div>
+      {/* Spacer for overlapping search */}
+      <div className="h-44 md:h-32 lg:h-36"></div>
 
       {/* Banner Section */}
       <section className="max-w-7xl mx-auto px-6 relative z-20 mb-20">
@@ -245,13 +244,13 @@ export default function LandingPage({ onNavigate }: LandingPageProps) {
 
           {/* Map Preview */}
           <motion.div 
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="rounded-3xl overflow-hidden shadow-2xl border-4 border-white h-[450px] relative z-10"
+            className="rounded-3xl overflow-hidden shadow-2xl border-4 border-white h-[350px] md:h-[450px] relative z-10"
           >
             <iframe 
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m12!1d3886.918!2d80.222!3d13.040!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a52670000000001%3A0x0!2zMzMtMTMsIEJyaW5kYXZhbiBTdCBFeHQsIFZpdmVrYW5hbmRhcHVyYW0sIFdlc3QgTWFtYmFsYW0sIENoZW5uYWksIFRhbWlsIE5hZHUgNjAwMDMz!5e0!3m2!1sen!2sin!4v1714371451000!5m2!1sen!2sin" 
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m12!1d3886.918237!2d80.222716!3d13.040182!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a526703565017ed%3A0x7d6a5c3789060662!2sBrindavan+St+Ext%2C+Vivekanandapuram%2C+West+Mambalam%2C+Chennai%2C+Tamil+Nadu+600033!5e0!3m2!1sen!2sin!4v1714371451000!5m2!1sen!2sin" 
               width="100%" 
               height="100%" 
               style={{ border: 0 }} 
