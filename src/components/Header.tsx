@@ -1,4 +1,4 @@
-import { Bell, User, Menu, ChevronRight } from 'lucide-react';
+import { Menu } from 'lucide-react';
 import { View } from '../types';
 import { IMAGES } from '../constants';
 
@@ -42,17 +42,11 @@ export default function Header({ currentView, onNavigate }: HeaderProps) {
           </nav>
         </div>
         <div className="flex items-center gap-4">
-          <button className="hidden md:flex text-outline hover:text-primary p-2 rounded-full hover:bg-surface-low transition-all duration-200 active:scale-95">
-            <Bell size={20} />
+          <button className="md:hidden text-outline hover:text-primary p-2 rounded-full hover:bg-surface-low transition-all duration-200 active:scale-95">
+            <Menu size={24} />
           </button>
-          <button className="hidden md:flex text-outline hover:text-primary p-2 rounded-full hover:bg-surface-low transition-all duration-200 active:scale-95">
-            <User size={20} />
-          </button>
-          <button 
-            onClick={() => onNavigate('dashboard')}
-            className="bg-primary hover:bg-primary-light text-white font-semibold px-5 py-2 rounded-lg transition-all duration-200 active:scale-95 shadow-sm"
-          >
-            Dashboard
+          <button className="hidden md:block bg-primary hover:bg-primary-light text-white font-bold px-6 py-2.5 rounded-full transition-all duration-200 active:scale-95 shadow-sm text-sm">
+            Contact Us
           </button>
         </div>
       </div>
