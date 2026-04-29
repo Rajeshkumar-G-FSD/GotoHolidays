@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Search, MapPin, Calendar, Plane, Luggage, ArrowRight, Loader2, Phone, Mail, Clock } from 'lucide-react';
 import { IMAGES } from '../constants';
 import { motion } from 'motion/react';
@@ -10,6 +10,24 @@ interface LandingPageProps {
 
 export default function LandingPage({ onNavigate }: LandingPageProps) {
   const [isSearching, setIsSearching] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    if (videoRef.current) {
+      // Explicitly try to play the video to handle some browser edge cases
+      const attemptPlay = () => {
+        videoRef.current?.play().catch(err => {
+          console.warn("Autoplay failed, user interaction might be needed", err);
+        });
+      };
+      
+      attemptPlay();
+      
+      // Also try on user interaction with the window if it failed
+      window.addEventListener('touchstart', attemptPlay, { once: true });
+      return () => window.removeEventListener('touchstart', attemptPlay);
+    }
+  }, []);
 
   const handleSearch = () => {
     setIsSearching(true);
@@ -18,14 +36,16 @@ export default function LandingPage({ onNavigate }: LandingPageProps) {
   return (
     <div className="w-full relative">
       {/* Hero Section */}
-      <section className="relative min-h-[70vh] md:min-h-[85vh] flex flex-col justify-center px-6">
+      <section className="relative min-h-[65vh] md:min-h-[85vh] flex flex-col justify-center px-6">
         <div className="absolute inset-0 z-0 overflow-hidden">
           <video 
+            ref={videoRef}
             autoPlay 
             muted 
             loop 
             playsInline
             className="w-full h-full object-cover"
+            poster={IMAGES.tropicalCoast}
           >
             <source src="/gotoholidays_tripvideo.mp4" type="video/mp4" />
             <img 
@@ -34,10 +54,10 @@ export default function LandingPage({ onNavigate }: LandingPageProps) {
               className="w-full h-full object-cover"
             />
           </video>
-          <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/30 to-black/70"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/40 md:from-black/70 md:via-black/30 md:to-black/60"></div>
         </div>
         
-        <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col items-center text-center pb-48 md:pb-40">
+        <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col items-center text-center pb-40 md:pb-40">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -49,18 +69,18 @@ export default function LandingPage({ onNavigate }: LandingPageProps) {
             </span>
           </motion.div>
           <motion.h1 
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="font-display text-3xl md:text-7xl lg:text-8xl text-white mb-3 md:mb-6 drop-shadow-lg font-black leading-[1.2] md:leading-[1.1] tracking-tight"
+            className="font-display text-4xl md:text-7xl lg:text-8xl text-white mb-3 md:mb-6 drop-shadow-lg font-black leading-[1.2] md:leading-[1.1] tracking-tight"
           >
             Discover the World <br className="hidden md:block" /> <span className="text-secondary">With Confidence</span>
           </motion.h1>
           <motion.p 
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1, duration: 0.6 }}
-            className="text-sm md:text-2xl text-white/90 mb-6 md:mb-12 max-w-3xl drop-shadow-sm font-medium leading-relaxed"
+            className="text-sm md:text-2xl text-white/90 mb-4 md:mb-12 max-w-3xl drop-shadow-sm font-medium leading-relaxed px-4 md:px-0"
           >
             Expert visa processing, curated holiday packages, and seamless flight bookings tailored specifically for your next adventure.
           </motion.p>
@@ -142,7 +162,7 @@ export default function LandingPage({ onNavigate }: LandingPageProps) {
       </section>
 
       {/* Spacer for overlapping search */}
-      <div className="h-44 md:h-32 lg:h-36"></div>
+      <div className="h-56 md:h-32 lg:h-36"></div>
 
       {/* Banner Section */}
       <section className="max-w-7xl mx-auto px-6 relative z-20 mb-20">
