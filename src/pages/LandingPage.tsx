@@ -13,20 +13,29 @@ export default function LandingPage({ onNavigate }: LandingPageProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
-    if (videoRef.current) {
-      // Explicitly try to play the video to handle some browser edge cases
-      const attemptPlay = () => {
-        videoRef.current?.play().catch(err => {
-          console.warn("Autoplay failed, user interaction might be needed", err);
-        });
-      };
-      
-      attemptPlay();
-      
-      // Also try on user interaction with the window if it failed
-      window.addEventListener('touchstart', attemptPlay, { once: true });
-      return () => window.removeEventListener('touchstart', attemptPlay);
+    const video = videoRef.current;
+    if (video) {
+        // Double-enforce muted for mobile autoplay
+        video.muted = true;
+        
+        // Attempt play and handle possible block
+        const playPromise = video.play();
+        if (playPromise !== undefined) {
+            playPromise.catch(error => {
+                console.warn("Autoplay blocked/failed, will rely on user interaction:", error);
+            });
+        }
     }
+
+    // Additional listener for user interaction to trigger play if it was blocked
+    const handleTouch = () => {
+      if (videoRef.current && videoRef.current.paused) {
+        videoRef.current.play().catch(() => {});
+      }
+    };
+    
+    window.addEventListener('touchstart', handleTouch, { once: true });
+    return () => window.removeEventListener('touchstart', handleTouch);
   }, []);
 
   const handleSearch = () => {
@@ -36,7 +45,7 @@ export default function LandingPage({ onNavigate }: LandingPageProps) {
   return (
     <div className="w-full relative">
       {/* Hero Section */}
-      <section className="relative min-h-[65vh] md:min-h-[85vh] flex flex-col justify-center px-6">
+      <section className="relative min-h-[70vh] md:min-h-[85vh] flex flex-col justify-center px-6">
         <div className="absolute inset-0 z-0 overflow-hidden">
           <video 
             ref={videoRef}
@@ -44,6 +53,7 @@ export default function LandingPage({ onNavigate }: LandingPageProps) {
             muted 
             loop 
             playsInline
+            preload="auto"
             className="w-full h-full object-cover"
             poster={IMAGES.tropicalCoast}
           >
@@ -54,10 +64,10 @@ export default function LandingPage({ onNavigate }: LandingPageProps) {
               className="w-full h-full object-cover"
             />
           </video>
-          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/40 md:from-black/70 md:via-black/30 md:to-black/60"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/30 to-black/80 md:from-black/70 md:via-black/30 md:to-black/60"></div>
         </div>
         
-        <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col items-center text-center pb-40 md:pb-40">
+        <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col items-center text-center pb-64 md:pb-40">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -80,7 +90,7 @@ export default function LandingPage({ onNavigate }: LandingPageProps) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1, duration: 0.6 }}
-            className="text-sm md:text-2xl text-white/90 mb-4 md:mb-12 max-w-3xl drop-shadow-sm font-medium leading-relaxed px-4 md:px-0"
+            className="text-base md:text-2xl text-white/90 mb-4 md:mb-12 max-w-3xl drop-shadow-sm font-medium leading-relaxed px-4 md:px-0"
           >
             Expert visa processing, curated holiday packages, and seamless flight bookings tailored specifically for your next adventure.
           </motion.p>
@@ -245,7 +255,7 @@ export default function LandingPage({ onNavigate }: LandingPageProps) {
                 <div>
                   <h4 className="font-bold text-on-surface text-base mb-1">Email Us</h4>
                   <p className="text-outline text-sm leading-relaxed">
-                    info@gotoholidays.com
+                    gotoholidaysandvisa@gmail.com
                   </p>
                 </div>
               </div>
@@ -270,7 +280,7 @@ export default function LandingPage({ onNavigate }: LandingPageProps) {
             className="rounded-3xl overflow-hidden shadow-2xl border-4 border-white h-[350px] md:h-[450px] relative z-10"
           >
             <iframe 
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m12!1d3886.918237!2d80.222716!3d13.040182!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a526703565017ed%3A0x7d6a5c3789060662!2sBrindavan+St+Ext%2C+Vivekanandapuram%2C+West+Mambalam%2C+Chennai%2C+Tamil+Nadu+600033!5e0!3m2!1sen!2sin!4v1714371451000!5m2!1sen!2sin" 
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m12!1d3886.918!2d80.222!3d13.040!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a526703565017ed%3A0x7d6a5c3789060662!2s33-13%2C%20Brindavan%20St%20Ext%2C%20Vivekanandapuram%2C%20West%20Mambalam%2C%20Chennai%2C%20Tamil%20Nadu%20600033!5e0!3m2!1sen!2sin!4v1714371451000!5m2!1sen!2sin" 
               width="100%" 
               height="100%" 
               style={{ border: 0 }} 

@@ -36,6 +36,9 @@ export default function Footer() {
             <p className="text-outline text-sm font-bold mt-1">
               Call: +91 98404 54601
             </p>
+            <p className="text-outline text-[10px] mt-1 break-all">
+              gotoholidaysandvisa@gmail.com
+            </p>
           </div>
         </div>
       </div>

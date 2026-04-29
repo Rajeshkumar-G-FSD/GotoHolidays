@@ -30,7 +30,7 @@ export default function Header({ currentView, onNavigate }: HeaderProps) {
   };
 
   return (
-    <header className="bg-white/95 backdrop-blur-md sticky top-0 z-50 border-b border-outline-variant/30 shadow-ambient font-display antialiased">
+    <header className="bg-white md:bg-white/95 md:backdrop-blur-md sticky top-0 z-50 border-b border-outline-variant/30 shadow-ambient font-display antialiased">
       <div className="flex justify-between items-center w-full px-6 py-4 max-w-7xl mx-auto">
         <div className="flex items-center gap-8">
           <button 
@@ -80,7 +80,7 @@ export default function Header({ currentView, onNavigate }: HeaderProps) {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setIsMenuOpen(false)}
-              className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[60] md:hidden"
+              className="fixed inset-0 bg-black/50 z-[60] md:hidden"
             />
             <motion.div
               initial={{ x: '100%' }}
